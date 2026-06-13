@@ -4,7 +4,7 @@ import { validate } from 'class-validator';
 
 export function validateDto<T extends object>(dtoClass: ClassConstructor<T>) {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const dto = plainToInstance(dtoClass, req.body);
+    const dto = plainToInstance(dtoClass, req.body, { enableImplicitConversion: true });
     const errors = await validate(dto, { whitelist: true, forbidNonWhitelisted: true });
     
     if (errors.length > 0) {
@@ -30,7 +30,7 @@ export function validateDto<T extends object>(dtoClass: ClassConstructor<T>) {
 
 export function validateQueryDto<T extends object>(dtoClass: ClassConstructor<T>) {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const dto = plainToInstance(dtoClass, req.query);
+    const dto = plainToInstance(dtoClass, req.query, { enableImplicitConversion: true });
     const errors = await validate(dto, { whitelist: true, forbidNonWhitelisted: true });
     
     if (errors.length > 0) {

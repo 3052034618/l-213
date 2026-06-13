@@ -4,20 +4,19 @@ import { materialService } from '../services/material.service';
 export class MaterialController {
   async uploadMaterial(req: Request, res: Response) {
     try {
-      if (!req.file) {
-        return res.status(400).json({
-          code: 400,
-          message: '请上传文件'
-        });
+      const { claimNo, materialType, description, uploader, fileName, filePath, fileSize } = req.body;
+      let material;
+      if (req.file) {
+        material = await materialService.uploadMaterial(
+          claimNo, materialType, req.file, description, uploader
+        );
+      } else if (fileName) {
+        material = await materialService.registerMaterial(
+          claimNo, materialType, fileName, filePath || '', Number(fileSize) || 0, description, uploader
+        );
+      } else {
+        return res.status(400).json({ code: 400, message: '请上传文件或提供材料信息' });
       }
-      const { claimNo, materialType, description, uploader } = req.body;
-      const material = await materialService.uploadMaterial(
-        claimNo,
-        materialType,
-        req.file,
-        description,
-        uploader
-      );
       res.status(201).json({
         code: 200,
         message: '材料上传成功',

@@ -17,7 +17,7 @@ export class MaterialService {
       throw new Error(`理赔申请 ${claimNo} 不存在`);
     }
 
-    if (claim.status === 'withdrawn' || claim.status === 'rejected' || claim.status === 'approved') {
+    if (claim.status === 'withdrawn' || claim.status === 'rejected' || claim.status === 'approved' || claim.status === 'settled') {
       throw new Error(`该申请状态不允许上传材料`);
     }
 
@@ -37,6 +37,39 @@ export class MaterialService {
       fileName: file.originalname,
       filePath: `/uploads/${claimNo}/${fileName}`,
       fileSize: file.size,
+      description,
+      uploader,
+      createdAt: now()
+    };
+    db.data!.materials.push(material);
+    await db.write();
+    return material;
+  }
+
+  async registerMaterial(
+    claimNo: string,
+    materialType: string,
+    fileName: string,
+    filePath: string,
+    fileSize: number,
+    description: string | undefined,
+    uploader: string
+  ): Promise<ClaimMaterial> {
+    const db = getDb();
+    const claim = db.data!.claims.find(c => c.claimNo === claimNo);
+    if (!claim) {
+      throw new Error(`理赔申请 ${claimNo} 不存在`);
+    }
+    if (claim.status === 'withdrawn' || claim.status === 'rejected' || claim.status === 'approved' || claim.status === 'settled') {
+      throw new Error(`该申请状态不允许登记材料`);
+    }
+    const material: ClaimMaterial = {
+      id: nextId('materialId'),
+      claimId: claim.id,
+      materialType,
+      fileName,
+      filePath: filePath || `/uploads/${claimNo}/${fileName}`,
+      fileSize,
       description,
       uploader,
       createdAt: now()

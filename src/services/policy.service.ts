@@ -2,6 +2,7 @@ import { getDb, nextId, now, InsurancePolicy } from '../config/database';
 import { CreatePolicyDto, QueryPolicyDto, RenewalQueryDto } from '../dto/policy.dto';
 import { generatePolicyNo, getDaysDifference } from '../utils/dateUtils';
 import { assetService } from './asset.service';
+import { syncService } from './sync.service';
 
 export class PolicyService {
   async createPolicy(dto: CreatePolicyDto): Promise<InsurancePolicy> {
@@ -214,7 +215,51 @@ export class PolicyService {
     };
     db.data!.policies.push(newPolicy);
     await db.write();
+
+    syncService.pushToExternalSystems('policy_renewed', newPolicy.policyNo, newPolicy).catch(() => { });
     return newPolicy;
+  }
+
+  async getExpiringPoliciesGrouped(days: number, groupBy: 'company' | 'assetType' | 'expiryMonth' = 'assetType'): Promise<any> {
+    const policies = await this.getExpiringPolicies(days);
+    const groups = new Map<string, any[]>();
+
+    for (const p of policies) {
+      let key = '';
+      if (groupBy === 'company') key = p.insuranceCompany || '未分类';
+      else if (groupBy === 'assetType') key = p.asset?.assetType || '未分类';
+      else if (groupBy === 'expiryMonth') key = p.expiryDate.substring(0, 7);
+
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key)!.push(p);
+    }
+
+    const result: any[] = [];
+    for (const [groupName, list] of groups.entries()) {
+      const totalPremium = list.reduce((s, p) => s + Number(p.premium), 0);
+      const totalAmount = list.reduce((s, p) => s + Number(p.insuranceAmount), 0);
+      result.push({
+        groupName,
+        count: list.length,
+        totalPremium,
+        totalAmount,
+        list: list.map(p => ({
+          policyNo: p.policyNo,
+          assetNo: p.asset?.assetNo,
+          assetName: p.asset?.assetName,
+          assetType: p.asset?.assetType,
+          insuranceCompany: p.insuranceCompany,
+          insuranceAmount: p.insuranceAmount,
+          premium: p.premium,
+          effectiveDate: p.effectiveDate,
+          expiryDate: p.expiryDate,
+          daysToExpiry: getDaysDifference(new Date().toISOString().split('T')[0], p.expiryDate)
+        }))
+      });
+    }
+
+    result.sort((a, b) => b.count - a.count);
+    return { groups: result, total: policies.length, groupBy };
   }
 }
 

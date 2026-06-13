@@ -10,6 +10,9 @@ import policyRoutes from './routes/policy.routes';
 import claimRoutes from './routes/claim.routes';
 import materialRoutes from './routes/material.routes';
 import operationLogRoutes from './routes/operationLog.routes';
+import syncRoutes from './routes/sync.routes';
+import reportRoutes from './routes/report.routes';
+import { reminderService } from './services/reminder.service';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -33,6 +36,8 @@ app.use('/api/policies', policyRoutes);
 app.use('/api/claims', claimRoutes);
 app.use('/api/materials', materialRoutes);
 app.use('/api/logs', operationLogRoutes);
+app.use('/api/sync', syncRoutes);
+app.use('/api/reports', reportRoutes);
 
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
   logger.error(`${req.method} ${req.path} - ${err.message}`);
@@ -62,8 +67,20 @@ initDatabase()
 ║  4. 理赔申请     - /api/claims/                               ║
 ║  5. 材料补交     - /api/materials/                            ║
 ║  6. 进度同步     - /api/claims/:claimNo/status                ║
+╠══════════════════════════════════════════════════════════════╣
+║  新增增强模块:                                                ║
+║  对外同步       - /api/sync/*                                 ║
+║  报表/提醒/链路 - /api/reports/*                              ║
 ╚══════════════════════════════════════════════════════════════╝
       `);
+
+      setInterval(() => {
+        reminderService.runAllDueTasks().then(r => {
+          if (r.executed > 0) {
+            logger.info(`定时提醒任务完成: 执行 ${r.executed} 个任务，发现 ${r.totalFound} 份到期保单`);
+          }
+        }).catch(e => logger.error('定时提醒任务失败:', e));
+      }, 60 * 60 * 1000);
     });
   })
   .catch((error) => {

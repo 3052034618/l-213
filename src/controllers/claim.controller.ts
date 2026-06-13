@@ -1,6 +1,9 @@
 import { Request, Response } from 'express';
-import { claimService } from '../services/claim.service';
-import { CreateClaimDto, QueryClaimDto, ApproveClaimDto, RejectClaimDto } from '../dto/claim.dto';
+import { claimService, CLAIM_STEPS, STATUS_MAP } from '../services/claim.service';
+import {
+  CreateClaimDto, QueryClaimDto, ApproveClaimDto, RejectClaimDto,
+  ReviewOpinionDto, SupplementNoticeDto, ResubmitClaimDto, ConfirmSettlementDto
+} from '../dto/claim.dto';
 
 export class ClaimController {
   async createClaim(req: Request, res: Response) {
@@ -165,6 +168,75 @@ export class ClaimController {
         code: 400,
         message: error.message
       });
+    }
+  }
+
+  async startL1Review(req: Request, res: Response) {
+    try {
+      const { claimNo } = req.params;
+      const dto = req.body as ReviewOpinionDto;
+      const claim = await claimService.startL1Review(claimNo, dto.operator, dto.opinion);
+      res.json({ code: 200, message: '已开始一级审核', data: claim });
+    } catch (error: any) {
+      res.status(400).json({ code: 400, message: error.message });
+    }
+  }
+
+  async passL1Review(req: Request, res: Response) {
+    try {
+      const { claimNo } = req.params;
+      const dto = req.body as ReviewOpinionDto;
+      const claim = await claimService.passL1Review(claimNo, dto.operator, dto.opinion);
+      res.json({ code: 200, message: '一级审核通过', data: claim });
+    } catch (error: any) {
+      res.status(400).json({ code: 400, message: error.message });
+    }
+  }
+
+  async requestSupplement(req: Request, res: Response) {
+    try {
+      const { claimNo } = req.params;
+      const dto = req.body as SupplementNoticeDto;
+      const claim = await claimService.requestSupplement(claimNo, dto.operator, dto.notice);
+      res.json({ code: 200, message: '已退回补件', data: claim });
+    } catch (error: any) {
+      res.status(400).json({ code: 400, message: error.message });
+    }
+  }
+
+  async resubmitClaim(req: Request, res: Response) {
+    try {
+      const { claimNo } = req.params;
+      const dto = req.body as ResubmitClaimDto;
+      const claim = await claimService.resubmitClaim(claimNo, dto.operator, dto.remark);
+      res.json({ code: 200, message: '已重新提交', data: claim });
+    } catch (error: any) {
+      res.status(400).json({ code: 400, message: error.message });
+    }
+  }
+
+  async confirmSettlement(req: Request, res: Response) {
+    try {
+      const { claimNo } = req.params;
+      const dto = req.body as ConfirmSettlementDto;
+      const claim = await claimService.confirmSettlement(claimNo, dto.operator, dto.settlementDate);
+      res.json({ code: 200, message: '赔付已确认', data: claim });
+    } catch (error: any) {
+      res.status(400).json({ code: 400, message: error.message });
+    }
+  }
+
+  async getWorkflowConfig(req: Request, res: Response) {
+    try {
+      res.json({
+        code: 200,
+        data: {
+          steps: CLAIM_STEPS,
+          statusMap: STATUS_MAP
+        }
+      });
+    } catch (error: any) {
+      res.status(500).json({ code: 500, message: error.message });
     }
   }
 }

@@ -42,11 +42,55 @@ export class QueryClaimDto {
 
   @IsOptional()
   @IsNumber()
+  currentStep?: number;
+
+  @IsOptional()
+  @IsNumber()
   page?: number;
 
   @IsOptional()
   @IsNumber()
   pageSize?: number;
+}
+
+export class ReviewOpinionDto {
+  @IsNotEmpty()
+  @IsString()
+  operator!: string;
+
+  @IsOptional()
+  @IsString()
+  opinion?: string;
+}
+
+export class SupplementNoticeDto {
+  @IsNotEmpty()
+  @IsString()
+  operator!: string;
+
+  @IsNotEmpty()
+  @IsString()
+  notice!: string;
+}
+
+export class ResubmitClaimDto {
+  @IsNotEmpty()
+  @IsString()
+  operator!: string;
+
+  @IsOptional()
+  @IsString()
+  remark?: string;
+}
+
+export class ConfirmSettlementDto {
+  @IsNotEmpty()
+  @IsString()
+  operator!: string;
+
+  @IsOptional()
+  @IsDateString()
+  settlementDate?: string;
 }
 
 export class ApproveClaimDto {

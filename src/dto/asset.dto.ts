@@ -25,4 +25,12 @@ export class CreateAssetDto {
   @IsOptional()
   @IsString()
   description?: string;
+
+  @IsOptional()
+  @IsString()
+  status?: string;
+
+  @IsOptional()
+  @IsString()
+  operator?: string;
 }

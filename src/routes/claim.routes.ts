@@ -2,7 +2,10 @@ import { Router } from 'express';
 import { claimController } from '../controllers/claim.controller';
 import { validateDto } from '../middleware/validation.middleware';
 import { createOperationLog } from '../middleware/operationLog.middleware';
-import { CreateClaimDto, ApproveClaimDto, RejectClaimDto } from '../dto/claim.dto';
+import {
+  CreateClaimDto, ApproveClaimDto, RejectClaimDto,
+  ReviewOpinionDto, SupplementNoticeDto, ResubmitClaimDto, ConfirmSettlementDto
+} from '../dto/claim.dto';
 
 const router = Router();
 
@@ -17,6 +20,7 @@ router.post(
   claimController.createClaim
 );
 
+router.get('/workflow/config', claimController.getWorkflowConfig);
 router.get('/:claimNo', claimController.getClaim);
 router.get('/', claimController.queryClaims);
 router.get('/:claimNo/status', claimController.getClaimStatus);
@@ -30,6 +34,50 @@ router.post(
     getBusinessKey: (req) => req.params.claimNo
   }),
   claimController.withdrawClaim
+);
+
+router.post(
+  '/:claimNo/review/l1/start',
+  validateDto(ReviewOpinionDto),
+  createOperationLog({
+    module: 'claim',
+    operation: 'startL1Review',
+    getBusinessKey: (req) => req.params.claimNo
+  }),
+  claimController.startL1Review
+);
+
+router.post(
+  '/:claimNo/review/l1/pass',
+  validateDto(ReviewOpinionDto),
+  createOperationLog({
+    module: 'claim',
+    operation: 'passL1Review',
+    getBusinessKey: (req) => req.params.claimNo
+  }),
+  claimController.passL1Review
+);
+
+router.post(
+  '/:claimNo/review/supplement',
+  validateDto(SupplementNoticeDto),
+  createOperationLog({
+    module: 'claim',
+    operation: 'requestSupplement',
+    getBusinessKey: (req) => req.params.claimNo
+  }),
+  claimController.requestSupplement
+);
+
+router.post(
+  '/:claimNo/resubmit',
+  validateDto(ResubmitClaimDto),
+  createOperationLog({
+    module: 'claim',
+    operation: 'resubmit',
+    getBusinessKey: (req) => req.params.claimNo
+  }),
+  claimController.resubmitClaim
 );
 
 router.post(
@@ -52,6 +100,17 @@ router.post(
     getBusinessKey: (req) => req.params.claimNo
   }),
   claimController.rejectClaim
+);
+
+router.post(
+  '/:claimNo/settle/confirm',
+  validateDto(ConfirmSettlementDto),
+  createOperationLog({
+    module: 'claim',
+    operation: 'confirmSettlement',
+    getBusinessKey: (req) => req.params.claimNo
+  }),
+  claimController.confirmSettlement
 );
 
 router.post(
