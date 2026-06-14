@@ -2,32 +2,32 @@
   "assets": [
     {
       "id": 2,
-      "assetNo": "AST-1781398921545",
+      "assetNo": "AST-1781402978080",
       "assetName": "办公设备-服务器",
       "assetType": "IT设备",
       "originalValue": 50000,
       "location": "北京总部机房",
       "description": "Dell PowerEdge R750服务器",
       "status": "normal",
-      "createdAt": "2026-06-14T01:02:01.790Z",
-      "updatedAt": "2026-06-14T01:02:01.790Z"
+      "createdAt": "2026-06-14T02:09:38.326Z",
+      "updatedAt": "2026-06-14T02:09:38.326Z"
     },
     {
       "id": 3,
-      "assetNo": "AST-1781398922457",
+      "assetNo": "AST-1781402979035",
       "assetName": "办公设备-打印机",
       "assetType": "办公设备",
       "originalValue": 10000,
       "location": "上海分公司",
       "status": "normal",
-      "createdAt": "2026-06-14T01:02:02.573Z",
-      "updatedAt": "2026-06-14T01:02:02.573Z"
+      "createdAt": "2026-06-14T02:09:39.147Z",
+      "updatedAt": "2026-06-14T02:09:39.147Z"
     }
   ],
   "policies": [
     {
       "id": 2,
-      "policyNo": "POL20260614090201566",
+      "policyNo": "POL20260614100938474",
       "assetId": 2,
       "insuranceCompany": "中国平安财产保险",
       "insuranceAmount": 50000,
@@ -38,24 +38,24 @@
       "status": "active",
       "remarks": "企业财产综合险",
       "operator": "admin",
-      "createdAt": "2026-06-14T01:02:01.908Z",
-      "updatedAt": "2026-06-14T01:02:01.908Z",
+      "createdAt": "2026-06-14T02:09:38.449Z",
+      "updatedAt": "2026-06-14T02:09:38.449Z",
       "asset": {
         "id": 2,
-        "assetNo": "AST-1781398921545",
+        "assetNo": "AST-1781402978080",
         "assetName": "办公设备-服务器",
         "assetType": "IT设备",
         "originalValue": 50000,
         "location": "北京总部机房",
         "description": "Dell PowerEdge R750服务器",
         "status": "normal",
-        "createdAt": "2026-06-14T01:02:01.790Z",
-        "updatedAt": "2026-06-14T01:02:01.790Z"
+        "createdAt": "2026-06-14T02:09:38.326Z",
+        "updatedAt": "2026-06-14T02:09:38.326Z"
       }
     },
     {
       "id": 3,
-      "policyNo": "POL20260614090202542",
+      "policyNo": "POL20260614100939626",
       "assetId": 3,
       "insuranceCompany": "中国人保财险",
       "insuranceAmount": 10000,
@@ -64,23 +64,23 @@
       "expiryDate": "2026-12-31",
       "status": "renewed",
       "operator": "finance_01",
-      "createdAt": "2026-06-14T01:02:02.684Z",
-      "updatedAt": "2026-06-14T01:02:03.805Z",
+      "createdAt": "2026-06-14T02:09:39.264Z",
+      "updatedAt": "2026-06-14T02:09:40.447Z",
       "asset": {
         "id": 3,
-        "assetNo": "AST-1781398922457",
+        "assetNo": "AST-1781402979035",
         "assetName": "办公设备-打印机",
         "assetType": "办公设备",
         "originalValue": 10000,
         "location": "上海分公司",
         "status": "normal",
-        "createdAt": "2026-06-14T01:02:02.573Z",
-        "updatedAt": "2026-06-14T01:02:02.573Z"
+        "createdAt": "2026-06-14T02:09:39.147Z",
+        "updatedAt": "2026-06-14T02:09:39.147Z"
       }
     },
     {
       "id": 4,
-      "policyNo": "POL20260614090203598",
+      "policyNo": "POL20260614100940030",
       "assetId": 3,
       "insuranceCompany": "中国人保财险",
       "insuranceAmount": 10000,
@@ -88,27 +88,27 @@
       "effectiveDate": "2027-01-01",
       "expiryDate": "2027-12-31",
       "status": "active",
-      "remarks": "续保自保单 POL20260614090202542",
+      "remarks": "续保自保单 POL20260614100939626",
       "operator": "admin",
-      "createdAt": "2026-06-14T01:02:03.805Z",
-      "updatedAt": "2026-06-14T01:02:03.805Z",
+      "createdAt": "2026-06-14T02:09:40.447Z",
+      "updatedAt": "2026-06-14T02:09:40.447Z",
       "asset": {
         "id": 3,
-        "assetNo": "AST-1781398922457",
+        "assetNo": "AST-1781402979035",
         "assetName": "办公设备-打印机",
         "assetType": "办公设备",
         "originalValue": 10000,
         "location": "上海分公司",
         "status": "normal",
-        "createdAt": "2026-06-14T01:02:02.573Z",
-        "updatedAt": "2026-06-14T01:02:02.573Z"
+        "createdAt": "2026-06-14T02:09:39.147Z",
+        "updatedAt": "2026-06-14T02:09:39.147Z"
       }
     }
   ],
   "claims": [
     {
       "id": 2,
-      "claimNo": "CLM20260614090202077",
+      "claimNo": "CLM20260614100939949",
       "assetId": 3,
       "policyId": 3,
       "accidentDate": "2026-06-10",
@@ -118,22 +118,22 @@
       "status": "approved",
       "currentStep": 4,
       "applicant": "staff_01",
-      "createdAt": "2026-06-14T01:02:02.791Z",
-      "updatedAt": "2026-06-14T01:02:03.250Z",
+      "createdAt": "2026-06-14T02:09:39.380Z",
+      "updatedAt": "2026-06-14T02:09:39.863Z",
       "asset": {
         "id": 3,
-        "assetNo": "AST-1781398922457",
+        "assetNo": "AST-1781402979035",
         "assetName": "办公设备-打印机",
         "assetType": "办公设备",
         "originalValue": 10000,
         "location": "上海分公司",
         "status": "normal",
-        "createdAt": "2026-06-14T01:02:02.573Z",
-        "updatedAt": "2026-06-14T01:02:02.573Z"
+        "createdAt": "2026-06-14T02:09:39.147Z",
+        "updatedAt": "2026-06-14T02:09:39.147Z"
       },
       "policy": {
         "id": 3,
-        "policyNo": "POL20260614090202542",
+        "policyNo": "POL20260614100939626",
         "assetId": 3,
         "insuranceCompany": "中国人保财险",
         "insuranceAmount": 10000,
@@ -142,18 +142,18 @@
         "expiryDate": "2026-12-31",
         "status": "active",
         "operator": "finance_01",
-        "createdAt": "2026-06-14T01:02:02.684Z",
-        "updatedAt": "2026-06-14T01:02:02.684Z",
+        "createdAt": "2026-06-14T02:09:39.264Z",
+        "updatedAt": "2026-06-14T02:09:39.264Z",
         "asset": {
           "id": 3,
-          "assetNo": "AST-1781398922457",
+          "assetNo": "AST-1781402979035",
           "assetName": "办公设备-打印机",
           "assetType": "办公设备",
           "originalValue": 10000,
           "location": "上海分公司",
           "status": "normal",
-          "createdAt": "2026-06-14T01:02:02.573Z",
-          "updatedAt": "2026-06-14T01:02:02.573Z"
+          "createdAt": "2026-06-14T02:09:39.147Z",
+          "updatedAt": "2026-06-14T02:09:39.147Z"
         }
       },
       "adjusterOpinion": "情况属实,按保额80%赔付",
@@ -161,7 +161,7 @@
     },
     {
       "id": 3,
-      "claimNo": "CLM20260614090203995",
+      "claimNo": "CLM20260614100939903",
       "assetId": 3,
       "policyId": 3,
       "accidentDate": "2026-06-12",
@@ -171,22 +171,22 @@
       "status": "withdrawn",
       "currentStep": 1,
       "applicant": "staff_02",
-      "createdAt": "2026-06-14T01:02:03.356Z",
-      "updatedAt": "2026-06-14T01:02:03.462Z",
+      "createdAt": "2026-06-14T02:09:39.979Z",
+      "updatedAt": "2026-06-14T02:09:40.097Z",
       "asset": {
         "id": 3,
-        "assetNo": "AST-1781398922457",
+        "assetNo": "AST-1781402979035",
         "assetName": "办公设备-打印机",
         "assetType": "办公设备",
         "originalValue": 10000,
         "location": "上海分公司",
         "status": "normal",
-        "createdAt": "2026-06-14T01:02:02.573Z",
-        "updatedAt": "2026-06-14T01:02:02.573Z"
+        "createdAt": "2026-06-14T02:09:39.147Z",
+        "updatedAt": "2026-06-14T02:09:39.147Z"
       },
       "policy": {
         "id": 3,
-        "policyNo": "POL20260614090202542",
+        "policyNo": "POL20260614100939626",
         "assetId": 3,
         "insuranceCompany": "中国人保财险",
         "insuranceAmount": 10000,
@@ -195,18 +195,18 @@
         "expiryDate": "2026-12-31",
         "status": "active",
         "operator": "finance_01",
-        "createdAt": "2026-06-14T01:02:02.684Z",
-        "updatedAt": "2026-06-14T01:02:02.684Z",
+        "createdAt": "2026-06-14T02:09:39.264Z",
+        "updatedAt": "2026-06-14T02:09:39.264Z",
         "asset": {
           "id": 3,
-          "assetNo": "AST-1781398922457",
+          "assetNo": "AST-1781402979035",
           "assetName": "办公设备-打印机",
           "assetType": "办公设备",
           "originalValue": 10000,
           "location": "上海分公司",
           "status": "normal",
-          "createdAt": "2026-06-14T01:02:02.573Z",
-          "updatedAt": "2026-06-14T01:02:02.573Z"
+          "createdAt": "2026-06-14T02:09:39.147Z",
+          "updatedAt": "2026-06-14T02:09:39.147Z"
         }
       }
     }
@@ -223,7 +223,7 @@
       "operatorRole": "申请人",
       "opinion": "申请提交",
       "result": "pass",
-      "createdAt": "2026-06-14T01:02:02.791Z"
+      "createdAt": "2026-06-14T02:09:39.381Z"
     },
     {
       "id": 3,
@@ -235,7 +235,7 @@
       "operatorRole": "理赔专员",
       "opinion": "开始审核",
       "result": "processing",
-      "createdAt": "2026-06-14T01:02:03.023Z"
+      "createdAt": "2026-06-14T02:09:39.614Z"
     },
     {
       "id": 4,
@@ -247,7 +247,7 @@
       "operatorRole": "理赔专员",
       "opinion": "情况属实,按保额80%赔付",
       "result": "pass",
-      "createdAt": "2026-06-14T01:02:03.248Z"
+      "createdAt": "2026-06-14T02:09:39.849Z"
     },
     {
       "id": 5,
@@ -259,7 +259,7 @@
       "operatorRole": "财务主管",
       "opinion": "情况属实,按保额80%赔付",
       "result": "pass",
-      "createdAt": "2026-06-14T01:02:03.250Z"
+      "createdAt": "2026-06-14T02:09:39.863Z"
     },
     {
       "id": 6,
@@ -271,7 +271,7 @@
       "operatorRole": "申请人",
       "opinion": "申请提交",
       "result": "pass",
-      "createdAt": "2026-06-14T01:02:03.356Z"
+      "createdAt": "2026-06-14T02:09:39.979Z"
     },
     {
       "id": 7,
@@ -283,7 +283,7 @@
       "operatorRole": "申请人",
       "opinion": "申请人撤回",
       "result": "reject",
-      "createdAt": "2026-06-14T01:02:03.462Z"
+      "createdAt": "2026-06-14T02:09:40.098Z"
     }
   ],
   "logs": [
@@ -291,23 +291,23 @@
       "id": 2,
       "module": "asset",
       "operation": "create",
-      "businessKey": "AST-1781398921545",
-      "beforeData": "{\"assetNo\":\"AST-1781398921545\",\"assetName\":\"办公设备-服务器\",\"assetType\":\"IT设备\",\"originalValue\":50000,\"location\":\"北京总部机房\",\"description\":\"Dell PowerEdge R750服务器\"}",
-      "afterData": "\"{\\\"code\\\":200,\\\"message\\\":\\\"资产创建成功\\\",\\\"data\\\":{\\\"id\\\":2,\\\"assetNo\\\":\\\"AST-1781398921545\\\",\\\"assetName\\\":\\\"办公设备-服务器\\\",\\\"assetType\\\":\\\"IT设备\\\",\\\"originalValue\\\":50000,\\\"location\\\":\\\"北京总部机房\\\",\\\"description\\\":\\\"Dell PowerEdge R750服务器\\\",\\\"status\\\":\\\"normal\\\",\\\"createdAt\\\":\\\"2026-06-14T01:02:01.790Z\\\",\\\"updatedAt\\\":\\\"2026-06-14T01:02:01.790Z\\\"}}\"",
+      "businessKey": "AST-1781402978080",
+      "beforeData": "{\"assetNo\":\"AST-1781402978080\",\"assetName\":\"办公设备-服务器\",\"assetType\":\"IT设备\",\"originalValue\":50000,\"location\":\"北京总部机房\",\"description\":\"Dell PowerEdge R750服务器\"}",
+      "afterData": "\"{\\\"code\\\":200,\\\"message\\\":\\\"资产创建成功\\\",\\\"data\\\":{\\\"id\\\":2,\\\"assetNo\\\":\\\"AST-1781402978080\\\",\\\"assetName\\\":\\\"办公设备-服务器\\\",\\\"assetType\\\":\\\"IT设备\\\",\\\"originalValue\\\":50000,\\\"location\\\":\\\"北京总部机房\\\",\\\"description\\\":\\\"Dell PowerEdge R750服务器\\\",\\\"status\\\":\\\"normal\\\",\\\"createdAt\\\":\\\"2026-06-14T02:09:38.326Z\\\",\\\"updatedAt\\\":\\\"2026-06-14T02:09:38.326Z\\\"}}\"",
       "operator": "system",
       "ipAddress": "::1",
-      "createdAt": "2026-06-14T01:02:01.792Z"
+      "createdAt": "2026-06-14T02:09:38.331Z"
     },
     {
       "id": 3,
       "module": "policy",
       "operation": "create",
       "businessKey": "",
-      "beforeData": "{\"assetNo\":\"AST-1781398921545\",\"insuranceCompany\":\"中国平安财产保险\",\"insuranceAmount\":50000,\"premium\":500,\"effectiveDate\":\"2026-06-01\",\"expiryDate\":\"2027-06-01\",\"coverageScope\":\"自然灾害,意外事故\",\"remarks\":\"企业财产综合险\",\"operator\":\"admin\"}",
-      "afterData": "\"{\\\"code\\\":200,\\\"message\\\":\\\"投保登记成功\\\",\\\"data\\\":{\\\"id\\\":2,\\\"policyNo\\\":\\\"POL20260614090201566\\\",\\\"assetId\\\":2,\\\"insuranceCompany\\\":\\\"中国平安财产保险\\\",\\\"insuranceAmount\\\":50000,\\\"premium\\\":500,\\\"effectiveDate\\\":\\\"2026-06-01\\\",\\\"expiryDate\\\":\\\"2027-06-01\\\",\\\"coverageScope\\\":\\\"自然灾害,意外事故\\\",\\\"status\\\":\\\"active\\\",\\\"remarks\\\":\\\"企业财产综合险\\\",\\\"operator\\\":\\\"admin\\\",\\\"createdAt\\\":\\\"2026-06-14T01:02:01.908Z\\\",\\\"updatedAt\\\":\\\"2026-06-14T01:02:01.908Z\\\",\\\"asset\\\":{\\\"id\\\":2,\\\"assetNo\\\":\\\"AST-1781398921545\\\",\\\"assetName\\\":\\\"办公设备-服务器\\\",\\\"assetType\\\":\\\"IT设备\\\",\\\"originalValue\\\":50000,\\\"location\\\":\\\"北京总部机房\\\",\\\"description\\\":\\\"Dell PowerEdge R750服务器\\\",\\\"status\\\":\\\"normal\\\",\\\"createdAt\\\":\\\"2026-06-14T01:02:01.790Z\\\",\\\"updatedAt\\\":\\\"2026-06-14T01:02:01.790Z\\\"}}}\"",
+      "beforeData": "{\"assetNo\":\"AST-1781402978080\",\"insuranceCompany\":\"中国平安财产保险\",\"insuranceAmount\":50000,\"premium\":500,\"effectiveDate\":\"2026-06-01\",\"expiryDate\":\"2027-06-01\",\"coverageScope\":\"自然灾害,意外事故\",\"remarks\":\"企业财产综合险\",\"operator\":\"admin\"}",
+      "afterData": "\"{\\\"code\\\":200,\\\"message\\\":\\\"投保登记成功\\\",\\\"data\\\":{\\\"id\\\":2,\\\"policyNo\\\":\\\"POL20260614100938474\\\",\\\"assetId\\\":2,\\\"insuranceCompany\\\":\\\"中国平安财产保险\\\",\\\"insuranceAmount\\\":50000,\\\"premium\\\":500,\\\"effectiveDate\\\":\\\"2026-06-01\\\",\\\"expiryDate\\\":\\\"2027-06-01\\\",\\\"coverageScope\\\":\\\"自然灾害,意外事故\\\",\\\"status\\\":\\\"active\\\",\\\"remarks\\\":\\\"企业财产综合险\\\",\\\"operator\\\":\\\"admin\\\",\\\"createdAt\\\":\\\"2026-06-14T02:09:38.449Z\\\",\\\"updatedAt\\\":\\\"2026-06-14T02:09:38.449Z\\\",\\\"asset\\\":{\\\"id\\\":2,\\\"assetNo\\\":\\\"AST-1781402978080\\\",\\\"assetName\\\":\\\"办公设备-服务器\\\",\\\"assetType\\\":\\\"IT设备\\\",\\\"originalValue\\\":50000,\\\"location\\\":\\\"北京总部机房\\\",\\\"description\\\":\\\"Dell PowerEdge R750服务器\\\",\\\"status\\\":\\\"normal\\\",\\\"createdAt\\\":\\\"2026-06-14T02:09:38.326Z\\\",\\\"updatedAt\\\":\\\"2026-06-14T02:09:38.326Z\\\"}}}\"",
       "operator": "admin",
       "ipAddress": "::1",
-      "createdAt": "2026-06-14T01:02:01.910Z"
+      "createdAt": "2026-06-14T02:09:38.452Z"
     },
     {
       "id": 4,
@@ -315,98 +315,98 @@
       "operation": "generateRenewalList",
       "businessKey": "",
       "beforeData": "{\"days\":365,\"assetType\":\"IT设备\"}",
-      "afterData": "\"{\\\"code\\\":200,\\\"message\\\":\\\"续保清单生成成功\\\",\\\"data\\\":[{\\\"policyNo\\\":\\\"POL20260614090201566\\\",\\\"assetNo\\\":\\\"AST-1781398921545\\\",\\\"assetName\\\":\\\"办公设备-服务器\\\",\\\"assetType\\\":\\\"IT设备\\\",\\\"company\\\":\\\"（未归属）\\\",\\\"insuranceCompany\\\":\\\"中国平安财产保险\\\",\\\"insuranceAmount\\\":50000,\\\"currentPremium\\\":500,\\\"effectiveDate\\\":\\\"2026-06-01\\\",\\\"expiryDate\\\":\\\"2027-06-01\\\",\\\"daysToExpiry\\\":352}],\\\"total\\\":1,\\\"summary\\\":{\\\"totalPolicies\\\":1,\\\"totalPremium\\\":500,\\\"totalAmount\\\":50000}}\"",
+      "afterData": "\"{\\\"code\\\":200,\\\"message\\\":\\\"续保清单生成成功\\\",\\\"data\\\":[{\\\"policyNo\\\":\\\"POL20260614100938474\\\",\\\"assetNo\\\":\\\"AST-1781402978080\\\",\\\"assetName\\\":\\\"办公设备-服务器\\\",\\\"assetType\\\":\\\"IT设备\\\",\\\"company\\\":\\\"（未归属）\\\",\\\"insuranceCompany\\\":\\\"中国平安财产保险\\\",\\\"insuranceAmount\\\":50000,\\\"currentPremium\\\":500,\\\"effectiveDate\\\":\\\"2026-06-01\\\",\\\"expiryDate\\\":\\\"2027-06-01\\\",\\\"daysToExpiry\\\":352}],\\\"total\\\":1,\\\"summary\\\":{\\\"totalPolicies\\\":1,\\\"totalPremium\\\":500,\\\"totalAmount\\\":50000}}\"",
       "operator": "system",
       "ipAddress": "::1",
-      "createdAt": "2026-06-14T01:02:02.458Z"
+      "createdAt": "2026-06-14T02:09:39.033Z"
     },
     {
       "id": 5,
       "module": "asset",
       "operation": "create",
-      "businessKey": "AST-1781398922457",
-      "beforeData": "{\"assetNo\":\"AST-1781398922457\",\"assetName\":\"办公设备-打印机\",\"assetType\":\"办公设备\",\"originalValue\":10000,\"location\":\"上海分公司\"}",
-      "afterData": "\"{\\\"code\\\":200,\\\"message\\\":\\\"资产创建成功\\\",\\\"data\\\":{\\\"id\\\":3,\\\"assetNo\\\":\\\"AST-1781398922457\\\",\\\"assetName\\\":\\\"办公设备-打印机\\\",\\\"assetType\\\":\\\"办公设备\\\",\\\"originalValue\\\":10000,\\\"location\\\":\\\"上海分公司\\\",\\\"status\\\":\\\"normal\\\",\\\"createdAt\\\":\\\"2026-06-14T01:02:02.573Z\\\",\\\"updatedAt\\\":\\\"2026-06-14T01:02:02.573Z\\\"}}\"",
+      "businessKey": "AST-1781402979035",
+      "beforeData": "{\"assetNo\":\"AST-1781402979035\",\"assetName\":\"办公设备-打印机\",\"assetType\":\"办公设备\",\"originalValue\":10000,\"location\":\"上海分公司\"}",
+      "afterData": "\"{\\\"code\\\":200,\\\"message\\\":\\\"资产创建成功\\\",\\\"data\\\":{\\\"id\\\":3,\\\"assetNo\\\":\\\"AST-1781402979035\\\",\\\"assetName\\\":\\\"办公设备-打印机\\\",\\\"assetType\\\":\\\"办公设备\\\",\\\"originalValue\\\":10000,\\\"location\\\":\\\"上海分公司\\\",\\\"status\\\":\\\"normal\\\",\\\"createdAt\\\":\\\"2026-06-14T02:09:39.147Z\\\",\\\"updatedAt\\\":\\\"2026-06-14T02:09:39.147Z\\\"}}\"",
       "operator": "system",
       "ipAddress": "::1",
-      "createdAt": "2026-06-14T01:02:02.576Z"
+      "createdAt": "2026-06-14T02:09:39.150Z"
     },
     {
       "id": 6,
       "module": "policy",
       "operation": "create",
       "businessKey": "",
-      "beforeData": "{\"assetNo\":\"AST-1781398922457\",\"insuranceCompany\":\"中国人保财险\",\"insuranceAmount\":10000,\"premium\":120,\"effectiveDate\":\"2026-01-01\",\"expiryDate\":\"2026-12-31\",\"operator\":\"finance_01\"}",
-      "afterData": "\"{\\\"code\\\":200,\\\"message\\\":\\\"投保登记成功\\\",\\\"data\\\":{\\\"id\\\":3,\\\"policyNo\\\":\\\"POL20260614090202542\\\",\\\"assetId\\\":3,\\\"insuranceCompany\\\":\\\"中国人保财险\\\",\\\"insuranceAmount\\\":10000,\\\"premium\\\":120,\\\"effectiveDate\\\":\\\"2026-01-01\\\",\\\"expiryDate\\\":\\\"2026-12-31\\\",\\\"status\\\":\\\"active\\\",\\\"operator\\\":\\\"finance_01\\\",\\\"createdAt\\\":\\\"2026-06-14T01:02:02.684Z\\\",\\\"updatedAt\\\":\\\"2026-06-14T01:02:02.684Z\\\",\\\"asset\\\":{\\\"id\\\":3,\\\"assetNo\\\":\\\"AST-1781398922457\\\",\\\"assetName\\\":\\\"办公设备-打印机\\\",\\\"assetType\\\":\\\"办公设备\\\",\\\"originalValue\\\":10000,\\\"location\\\":\\\"上海分公司\\\",\\\"status\\\":\\\"normal\\\",\\\"createdAt\\\":\\\"2026-06-14T01:02:02.573Z\\\",\\\"updatedAt\\\":\\\"2026-06-14T01:02:02.573Z\\\"}}}\"",
+      "beforeData": "{\"assetNo\":\"AST-1781402979035\",\"insuranceCompany\":\"中国人保财险\",\"insuranceAmount\":10000,\"premium\":120,\"effectiveDate\":\"2026-01-01\",\"expiryDate\":\"2026-12-31\",\"operator\":\"finance_01\"}",
+      "afterData": "\"{\\\"code\\\":200,\\\"message\\\":\\\"投保登记成功\\\",\\\"data\\\":{\\\"id\\\":3,\\\"policyNo\\\":\\\"POL20260614100939626\\\",\\\"assetId\\\":3,\\\"insuranceCompany\\\":\\\"中国人保财险\\\",\\\"insuranceAmount\\\":10000,\\\"premium\\\":120,\\\"effectiveDate\\\":\\\"2026-01-01\\\",\\\"expiryDate\\\":\\\"2026-12-31\\\",\\\"status\\\":\\\"active\\\",\\\"operator\\\":\\\"finance_01\\\",\\\"createdAt\\\":\\\"2026-06-14T02:09:39.264Z\\\",\\\"updatedAt\\\":\\\"2026-06-14T02:09:39.264Z\\\",\\\"asset\\\":{\\\"id\\\":3,\\\"assetNo\\\":\\\"AST-1781402979035\\\",\\\"assetName\\\":\\\"办公设备-打印机\\\",\\\"assetType\\\":\\\"办公设备\\\",\\\"originalValue\\\":10000,\\\"location\\\":\\\"上海分公司\\\",\\\"status\\\":\\\"normal\\\",\\\"createdAt\\\":\\\"2026-06-14T02:09:39.147Z\\\",\\\"updatedAt\\\":\\\"2026-06-14T02:09:39.147Z\\\"}}}\"",
       "operator": "finance_01",
       "ipAddress": "::1",
-      "createdAt": "2026-06-14T01:02:02.687Z"
+      "createdAt": "2026-06-14T02:09:39.267Z"
     },
     {
       "id": 7,
       "module": "claim",
       "operation": "create",
       "businessKey": "",
-      "beforeData": "{\"assetNo\":\"AST-1781398922457\",\"accidentDate\":\"2026-06-10\",\"accidentDescription\":\"打印机因电路短路烧毁,需要维修或更换\",\"claimedAmount\":8000,\"applicant\":\"staff_01\"}",
+      "beforeData": "{\"assetNo\":\"AST-1781402979035\",\"accidentDate\":\"2026-06-10\",\"accidentDescription\":\"打印机因电路短路烧毁,需要维修或更换\",\"claimedAmount\":8000,\"applicant\":\"staff_01\"}",
       "afterData": "{\"truncated\":true,\"summary\":\"响应数据过大，已截断\"}",
       "operator": "staff_01",
       "ipAddress": "::1",
-      "createdAt": "2026-06-14T01:02:02.794Z"
+      "createdAt": "2026-06-14T02:09:39.383Z"
     },
     {
       "id": 8,
       "module": "claim",
       "operation": "startReview",
-      "businessKey": "CLM20260614090202077",
+      "businessKey": "CLM20260614100939949",
       "beforeData": "{\"operator\":\"adjuster_01\"}",
       "afterData": "{\"truncated\":true,\"summary\":\"响应数据过大，已截断\"}",
       "operator": "adjuster_01",
       "ipAddress": "::1",
-      "createdAt": "2026-06-14T01:02:03.025Z"
+      "createdAt": "2026-06-14T02:09:39.616Z"
     },
     {
       "id": 9,
       "module": "claim",
       "operation": "approve",
-      "businessKey": "CLM20260614090202077",
+      "businessKey": "CLM20260614100939949",
       "beforeData": "{\"approvedAmount\":7500,\"adjusterOpinion\":\"情况属实,按保额80%赔付\",\"settlementDate\":\"2026-06-14\",\"approver\":\"manager_01\"}",
       "afterData": "{\"truncated\":true,\"summary\":\"响应数据过大，已截断\"}",
       "operator": "manager_01",
       "ipAddress": "::1",
-      "createdAt": "2026-06-14T01:02:03.252Z"
+      "createdAt": "2026-06-14T02:09:39.870Z"
     },
     {
       "id": 10,
       "module": "claim",
       "operation": "create",
       "businessKey": "",
-      "beforeData": "{\"assetNo\":\"AST-1781398922457\",\"accidentDate\":\"2026-06-12\",\"accidentDescription\":\"测试申请,用于验证撤回功能\",\"claimedAmount\":1000,\"applicant\":\"staff_02\"}",
+      "beforeData": "{\"assetNo\":\"AST-1781402979035\",\"accidentDate\":\"2026-06-12\",\"accidentDescription\":\"测试申请,用于验证撤回功能\",\"claimedAmount\":1000,\"applicant\":\"staff_02\"}",
       "afterData": "{\"truncated\":true,\"summary\":\"响应数据过大，已截断\"}",
       "operator": "staff_02",
       "ipAddress": "::1",
-      "createdAt": "2026-06-14T01:02:03.359Z"
+      "createdAt": "2026-06-14T02:09:39.982Z"
     },
     {
       "id": 11,
       "module": "claim",
       "operation": "withdraw",
-      "businessKey": "CLM20260614090203995",
+      "businessKey": "CLM20260614100939903",
       "beforeData": "{\"operator\":\"staff_02\"}",
       "afterData": "{\"truncated\":true,\"summary\":\"响应数据过大，已截断\"}",
       "operator": "staff_02",
       "ipAddress": "::1",
-      "createdAt": "2026-06-14T01:02:03.465Z"
+      "createdAt": "2026-06-14T02:09:40.101Z"
     },
     {
       "id": 12,
       "module": "policy",
       "operation": "renew",
-      "businessKey": "POL20260614090202542",
+      "businessKey": "POL20260614100939626",
       "beforeData": "{\"effectiveDate\":\"2027-01-01\",\"expiryDate\":\"2027-12-31\",\"premium\":130,\"operator\":\"admin\"}",
-      "afterData": "\"{\\\"code\\\":200,\\\"message\\\":\\\"续保成功\\\",\\\"data\\\":{\\\"id\\\":4,\\\"policyNo\\\":\\\"POL20260614090203598\\\",\\\"assetId\\\":3,\\\"insuranceCompany\\\":\\\"中国人保财险\\\",\\\"insuranceAmount\\\":10000,\\\"premium\\\":130,\\\"effectiveDate\\\":\\\"2027-01-01\\\",\\\"expiryDate\\\":\\\"2027-12-31\\\",\\\"status\\\":\\\"active\\\",\\\"remarks\\\":\\\"续保自保单 POL20260614090202542\\\",\\\"operator\\\":\\\"admin\\\",\\\"createdAt\\\":\\\"2026-06-14T01:02:03.805Z\\\",\\\"updatedAt\\\":\\\"2026-06-14T01:02:03.805Z\\\",\\\"asset\\\":{\\\"id\\\":3,\\\"assetNo\\\":\\\"AST-1781398922457\\\",\\\"assetName\\\":\\\"办公设备-打印机\\\",\\\"assetType\\\":\\\"办公设备\\\",\\\"originalValue\\\":10000,\\\"location\\\":\\\"上海分公司\\\",\\\"status\\\":\\\"normal\\\",\\\"createdAt\\\":\\\"2026-06-14T01:02:02.573Z\\\",\\\"updatedAt\\\":\\\"2026-06-14T01:02:02.573Z\\\"}}}\"",
+      "afterData": "\"{\\\"code\\\":200,\\\"message\\\":\\\"续保成功\\\",\\\"data\\\":{\\\"id\\\":4,\\\"policyNo\\\":\\\"POL20260614100940030\\\",\\\"assetId\\\":3,\\\"insuranceCompany\\\":\\\"中国人保财险\\\",\\\"insuranceAmount\\\":10000,\\\"premium\\\":130,\\\"effectiveDate\\\":\\\"2027-01-01\\\",\\\"expiryDate\\\":\\\"2027-12-31\\\",\\\"status\\\":\\\"active\\\",\\\"remarks\\\":\\\"续保自保单 POL20260614100939626\\\",\\\"operator\\\":\\\"admin\\\",\\\"createdAt\\\":\\\"2026-06-14T02:09:40.447Z\\\",\\\"updatedAt\\\":\\\"2026-06-14T02:09:40.447Z\\\",\\\"asset\\\":{\\\"id\\\":3,\\\"assetNo\\\":\\\"AST-1781402979035\\\",\\\"assetName\\\":\\\"办公设备-打印机\\\",\\\"assetType\\\":\\\"办公设备\\\",\\\"originalValue\\\":10000,\\\"location\\\":\\\"上海分公司\\\",\\\"status\\\":\\\"normal\\\",\\\"createdAt\\\":\\\"2026-06-14T02:09:39.147Z\\\",\\\"updatedAt\\\":\\\"2026-06-14T02:09:39.147Z\\\"}}}\"",
       "operator": "admin",
       "ipAddress": "::1",
-      "createdAt": "2026-06-14T01:02:03.809Z"
+      "createdAt": "2026-06-14T02:09:40.449Z"
     }
   ],
   "externalSystems": [],
@@ -420,8 +420,8 @@
       "intervalSeconds": 30,
       "httpErrorWhitelist": "408,429,500,502,503,504",
       "enabled": true,
-      "createdAt": "2026-06-14T01:01:51.264Z",
-      "updatedAt": "2026-06-14T01:01:51.264Z"
+      "createdAt": "2026-06-14T02:07:45.712Z",
+      "updatedAt": "2026-06-14T02:07:45.713Z"
     }
   ],
   "reminderTasks": [],

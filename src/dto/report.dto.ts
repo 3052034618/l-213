@@ -66,6 +66,14 @@ export class QueryReminderHistoryDto {
   batchNo?: string;
 
   @IsOptional()
+  @IsString()
+  company?: string;
+
+  @IsOptional()
+  @IsString()
+  assetType?: string;
+
+  @IsOptional()
   @IsInt()
   @Min(1)
   page?: number;

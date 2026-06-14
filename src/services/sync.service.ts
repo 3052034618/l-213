@@ -357,7 +357,7 @@ export class SyncService {
     const db = getDb();
     const nowTs = Date.now();
     const candidates = db.data!.syncRecords.filter(r => {
-      if (r.status === 'success') return false;
+      if (r.status !== 'waiting_retry') return false;
       if (r.retryCount >= r.maxRetry) return false;
       if (r.nextRetryAt && new Date(r.nextRetryAt).getTime() > nowTs) return false;
       return true;

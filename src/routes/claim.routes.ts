@@ -21,10 +21,9 @@ router.post(
 );
 
 router.get('/workflow/config', claimController.getWorkflowConfig);
-router.get('/:claimNo', claimController.getClaim);
+router.get('/statistics/data', claimController.getStatistics);
 router.get('/', claimController.queryClaims);
 router.get('/:claimNo/status', claimController.getClaimStatus);
-router.get('/statistics/data', claimController.getStatistics);
 
 router.post(
   '/:claimNo/withdraw',
@@ -122,5 +121,7 @@ router.post(
   }),
   claimController.startReview
 );
+
+router.get('/:claimNo', claimController.getClaim);
 
 export default router;

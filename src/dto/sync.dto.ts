@@ -1,4 +1,4 @@
-import { IsString, IsOptional, IsInt, Min, Max, IsBoolean, IsIn } from 'class-validator';
+import { IsString, IsOptional, IsInt, Min, Max, IsBoolean, IsIn, Matches } from 'class-validator';
 
 export class RegisterExternalSystemDto {
   @IsString()
@@ -68,6 +68,9 @@ export class QuerySyncRecordDto {
 
   @IsOptional()
   @IsString()
+  @Matches(/^(AUTH_FAILED|ADDRESS_NOT_FOUND|BAD_REQUEST|TIMEOUT|NETWORK_ERROR|UNKNOWN|HTTP_ERROR_\d+)$/, {
+    message: 'errorCategory 只能是: AUTH_FAILED, ADDRESS_NOT_FOUND, BAD_REQUEST, TIMEOUT, NETWORK_ERROR, UNKNOWN, 或 HTTP_ERROR_XXX (如 HTTP_ERROR_500)'
+  })
   errorCategory?: string;
 
   @IsOptional()

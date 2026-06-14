@@ -17,10 +17,10 @@ router.post(
   policyController.createPolicy
 );
 
-router.get('/:policyNo', policyController.getPolicy);
-router.get('/asset/:assetNo', policyController.getPoliciesByAssetNo);
 router.get('/', policyController.queryPolicies);
+router.get('/asset/:assetNo', policyController.getPoliciesByAssetNo);
 router.get('/expiring/list', policyController.getExpiringPolicies);
+router.get('/fee/summary', policyController.getFeeSummary);
 
 router.post(
   '/renewal/list',
@@ -32,8 +32,6 @@ router.post(
   policyController.generateRenewalList
 );
 
-router.get('/fee/summary', policyController.getFeeSummary);
-
 router.post(
   '/:policyNo/renew',
   createOperationLog({
@@ -43,5 +41,7 @@ router.post(
   }),
   policyController.renewPolicy
 );
+
+router.get('/:policyNo', policyController.getPolicy);
 
 export default router;

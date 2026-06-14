@@ -184,6 +184,8 @@ export class ReminderService {
   async listHistories(params: {
     taskId?: number;
     batchNo?: string;
+    company?: string;
+    assetType?: string;
     page?: number;
     pageSize?: number;
   }): Promise<{
@@ -196,6 +198,20 @@ export class ReminderService {
     let filtered = [...db.data!.reminderHistories];
     if (params.taskId) filtered = filtered.filter(h => h.taskId === params.taskId);
     if (params.batchNo) filtered = filtered.filter(h => h.batchNo === params.batchNo);
+    if (params.company) filtered = filtered.filter(h => {
+      if (h.company === params.company) return true;
+      try {
+        const map = h.companySummary ? JSON.parse(h.companySummary) as Record<string, number> : {};
+        return Object.prototype.hasOwnProperty.call(map, params.company!);
+      } catch { return false; }
+    });
+    if (params.assetType) filtered = filtered.filter(h => {
+      if (h.assetType === params.assetType) return true;
+      try {
+        const map = h.assetTypeSummary ? JSON.parse(h.assetTypeSummary) as Record<string, number> : {};
+        return Object.prototype.hasOwnProperty.call(map, params.assetType!);
+      } catch { return false; }
+    });
     filtered.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     const list = filtered.slice((page - 1) * pageSize, page * pageSize).map(h => {
       let companyDetails: Record<string, number> | undefined;
