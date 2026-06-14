@@ -13,10 +13,12 @@ export class AssetService {
       assetNo: dto.assetNo,
       assetName: dto.assetName,
       assetType: dto.assetType,
+      company: dto.company,
       originalValue: dto.originalValue,
       location: dto.location,
       description: dto.description,
       status: 'normal',
+      operator: dto.operator,
       createdAt: now(),
       updatedAt: now()
     };

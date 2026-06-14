@@ -255,11 +255,24 @@ export class ReportService {
 
     for (const s of syncRecords) {
       const syncName = (SYNC_TYPE_NAMES as any)[s.syncType] || s.syncType;
+      let bizStatus: string | undefined;
+      if (s.syncType?.startsWith('claim_')) bizStatus = claimsByNo.get(s.businessKey)?.status;
+      else if (s.syncType?.startsWith('policy_')) {
+        const pol = [...policiesMap.values()].find((p: any) => p.policyNo === s.businessKey);
+        bizStatus = (pol as any)?.status;
+      }
+      const triStatus = [
+        `推送:${s.status}`,
+        s.externalAckStatus && s.externalAckStatus !== 'pending' ? `回执:${s.externalAckStatus}` : null,
+        bizStatus ? `业务:${bizStatus}` : null
+      ].filter(Boolean).join(' / ');
+      (s as any).retriesLeft = s.status === 'waiting_retry' ? Math.max(0, (s.maxRetry || 0) - (s.retryCount || 0)) : 0;
+      (s as any).businessFinalStatus = bizStatus;
       events.push({
         time: s.createdAt, category: 'sync', action: s.syncType,
         actionLabel: `对外同步：${syncName}`,
-        status: `${s.status}${s.externalAckStatus && s.externalAckStatus !== 'pending' ? ` / 回执:${s.externalAckStatus}` : ''}`,
-        detail: `推送到 ${s.targetSystem}${s.httpStatus ? `，HTTP ${s.httpStatus}` : ''}${s.requestDurationMs ? `，耗时 ${s.requestDurationMs}ms` : ''}${s.errorMessage ? `，错误：${s.errorMessage}` : ''}${s.retryCount ? `（第 ${s.retryCount}/${s.maxRetry} 次）` : ''}${s.externalAckResult ? `；对方回执：${s.externalAckResult}` : ''}`,
+        status: triStatus,
+        detail: `推送到 ${s.targetSystem}${s.httpStatus ? `，HTTP ${s.httpStatus}` : ''}${s.requestDurationMs ? `，耗时 ${s.requestDurationMs}ms` : ''}${s.errorMessage ? `，错误：${s.errorMessage}` : ''}${s.retryCount ? `（第 ${s.retryCount}/${s.maxRetry} 次）` : ''}${s.externalAckResult ? `；对方回执：${s.externalAckResult}` : ''}${bizStatus ? `；当前业务状态：${bizStatus}` : ''}`,
         ref: { syncRecordId: s.id }
       });
     }

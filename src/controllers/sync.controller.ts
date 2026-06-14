@@ -58,6 +58,11 @@ class SyncController {
   async queryRecords(req: Request, res: Response) {
     try {
       const dto = plainToInstance(QuerySyncRecordDto, req.query, { enableImplicitConversion: true });
+      const errors = await validate(dto);
+      if (errors.length > 0) {
+        const details = errors.map(e => `${e.property}: ${Object.values(e.constraints || {}).join('; ')}`).join(' | ');
+        return res.status(400).json({ code: 400, message: '查询参数错误', errors: details });
+      }
       const result = await syncService.querySyncRecords({
         businessKey: dto.businessKey,
         syncType: dto.syncType as any,

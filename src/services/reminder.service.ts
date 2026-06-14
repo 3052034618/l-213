@@ -97,7 +97,7 @@ export class ReminderService {
       policies = policies.filter(p => p.asset?.assetType === task.assetType);
     }
     if (task.company) {
-      policies = policies.filter(p => p.insuranceCompany === task.company);
+      policies = policies.filter(p => p.asset?.company === task.company);
     }
 
     const totalPremium = policies.reduce((s, p) => s + Number(p.premium), 0);
@@ -107,7 +107,8 @@ export class ReminderService {
     const byCompany = new Map<string, number>();
     const byAssetType = new Map<string, number>();
     for (const p of policies) {
-      byCompany.set(p.insuranceCompany, (byCompany.get(p.insuranceCompany) || 0) + 1);
+      const assetCompany = p.asset?.company || '（未归属）';
+      byCompany.set(assetCompany, (byCompany.get(assetCompany) || 0) + 1);
       if (p.asset?.assetType) {
         byAssetType.set(p.asset.assetType, (byAssetType.get(p.asset.assetType) || 0) + 1);
       }

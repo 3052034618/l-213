@@ -126,6 +126,7 @@ export class PolicyService {
       assetNo: p.asset!.assetNo,
       assetName: p.asset!.assetName,
       assetType: p.asset!.assetType,
+      company: p.asset?.company || '（未归属）',
       insuranceCompany: p.insuranceCompany,
       insuranceAmount: p.insuranceAmount,
       currentPremium: p.premium,
@@ -226,7 +227,7 @@ export class PolicyService {
 
     for (const p of policies) {
       let key = '';
-      if (groupBy === 'company') key = p.insuranceCompany || '未分类';
+      if (groupBy === 'company') key = p.asset?.company || '（未归属）';
       else if (groupBy === 'assetType') key = p.asset?.assetType || '未分类';
       else if (groupBy === 'expiryMonth') key = p.expiryDate.substring(0, 7);
 

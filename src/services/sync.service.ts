@@ -409,7 +409,7 @@ export class SyncService {
     errorCategory?: string;
     page?: number;
     pageSize?: number;
-  }): Promise<{ list: SyncRecord[]; total: number }> {
+  }): Promise<{ list: any[]; total: number }> {
     const db = getDb();
     const page = params.page || 1;
     const pageSize = params.pageSize || 20;
@@ -421,14 +421,49 @@ export class SyncService {
     if (params.externalAckStatus) filtered = filtered.filter(r => r.externalAckStatus === params.externalAckStatus);
     if (params.errorCategory) filtered = filtered.filter(r => r.errorCategory === params.errorCategory);
     filtered.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    const claimNos = new Set<string>();
+    const policyNos = new Set<string>();
+    for (const r of filtered) {
+      if (r.syncType === 'claim_approved' || r.syncType === 'claim_rejected' || r.syncType === 'claim_withdrawn' || r.syncType === 'claim_settled') claimNos.add(r.businessKey);
+      if (r.syncType === 'policy_renewed' || r.syncType === 'policy_expiring') policyNos.add(r.businessKey);
+    }
+    const claimStatusMap = new Map<string, string>();
+    for (const claimNo of claimNos) {
+      const c = db.data!.claims.find(x => x.claimNo === claimNo);
+      if (c) claimStatusMap.set(claimNo, c.status);
+    }
+    const policyStatusMap = new Map<string, string>();
+    for (const pn of policyNos) {
+      const p = db.data!.policies.find(x => x.policyNo === pn);
+      if (p) policyStatusMap.set(pn, p.status);
+    }
+    const enriched = filtered.map(r => {
+      const retriesLeft = r.status === 'waiting_retry' ? Math.max(0, (r.maxRetry || 0) - (r.retryCount || 0)) : 0;
+      let businessFinalStatus: string | undefined;
+      if (r.syncType.startsWith('claim_')) businessFinalStatus = claimStatusMap.get(r.businessKey);
+      else if (r.syncType.startsWith('policy_')) businessFinalStatus = policyStatusMap.get(r.businessKey);
+      return { ...r, retriesLeft, businessFinalStatus };
+    });
     return {
-      list: filtered.slice((page - 1) * pageSize, page * pageSize),
+      list: enriched.slice((page - 1) * pageSize, page * pageSize),
       total: filtered.length
     };
   }
 
-  async getSyncRecordDetail(id: number): Promise<SyncRecord | null> {
-    return getDb().data!.syncRecords.find(r => r.id === id) || null;
+  async getSyncRecordDetail(id: number): Promise<any | null> {
+    const db = getDb();
+    const r = db.data!.syncRecords.find(x => x.id === id);
+    if (!r) return null;
+    const retriesLeft = r.status === 'waiting_retry' ? Math.max(0, (r.maxRetry || 0) - (r.retryCount || 0)) : 0;
+    let businessFinalStatus: string | undefined;
+    if (r.syncType.startsWith('claim_')) {
+      const c = db.data!.claims.find(x => x.claimNo === r.businessKey);
+      businessFinalStatus = c?.status;
+    } else if (r.syncType.startsWith('policy_')) {
+      const p = db.data!.policies.find(x => x.policyNo === r.businessKey);
+      businessFinalStatus = p?.status;
+    }
+    return { ...r, retriesLeft, businessFinalStatus };
   }
 
   async getSyncStatistics(): Promise<any> {
