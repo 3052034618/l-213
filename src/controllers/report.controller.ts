@@ -2,7 +2,10 @@ import { Request, Response } from 'express';
 import { reminderService } from '../services/reminder.service';
 import { policyService } from '../services/policy.service';
 import { reportService } from '../services/report.service';
-import { CreateReminderTaskDto, UpdateReminderTaskDto, ExportRenewalDto, FinanceReportDto } from '../dto/report.dto';
+import {
+  CreateReminderTaskDto, UpdateReminderTaskDto, ExportRenewalDto, FinanceReportDto,
+  CreateReceiverDto, UpdateReceiverDto, QueryReminderHistoryDto
+} from '../dto/report.dto';
 import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
 
@@ -71,6 +74,63 @@ class ReportController {
     }
   }
 
+  async listReminderHistories(req: Request, res: Response) {
+    try {
+      const dto = plainToInstance(QueryReminderHistoryDto, req.query, { enableImplicitConversion: true });
+      const errors = await validate(dto);
+      if (errors.length > 0) return res.status(400).json({ code: 400, message: '参数错误', errors });
+      const result = await reminderService.listHistories(dto);
+      res.json({ code: 200, ...result });
+    } catch (e: any) {
+      res.status(500).json({ code: 500, message: e.message });
+    }
+  }
+
+  async createReceiver(req: Request, res: Response) {
+    try {
+      const dto = plainToInstance(CreateReceiverDto, req.body, { enableImplicitConversion: true });
+      const errors = await validate(dto);
+      if (errors.length > 0) return res.status(400).json({ code: 400, message: '参数错误', errors });
+      const r = await reminderService.createReceiver(dto);
+      res.json({ code: 200, data: r, message: '接收对象创建成功' });
+    } catch (e: any) {
+      res.status(400).json({ code: 400, message: e.message });
+    }
+  }
+
+  async updateReceiver(req: Request, res: Response) {
+    try {
+      const id = Number(req.params.id);
+      const dto = plainToInstance(UpdateReceiverDto, req.body, { enableImplicitConversion: true });
+      const errors = await validate(dto);
+      if (errors.length > 0) return res.status(400).json({ code: 400, message: '参数错误', errors });
+      const r = await reminderService.updateReceiver(id, dto);
+      res.json({ code: 200, data: r, message: '更新成功' });
+    } catch (e: any) {
+      res.status(400).json({ code: 400, message: e.message });
+    }
+  }
+
+  async deleteReceiver(req: Request, res: Response) {
+    try {
+      const id = Number(req.params.id);
+      await reminderService.deleteReceiver(id);
+      res.json({ code: 200, message: '已删除' });
+    } catch (e: any) {
+      res.status(400).json({ code: 400, message: e.message });
+    }
+  }
+
+  async listReceivers(req: Request, res: Response) {
+    try {
+      const category = req.query.category as string | undefined;
+      const list = await reminderService.listReceivers(category);
+      res.json({ code: 200, data: list, total: list.length });
+    } catch (e: any) {
+      res.status(500).json({ code: 500, message: e.message });
+    }
+  }
+
   async getExpiringGrouped(req: Request, res: Response) {
     try {
       const days = Number(req.query.days) || 30;
@@ -87,8 +147,9 @@ class ReportController {
       const dto = plainToInstance(ExportRenewalDto, req.query, { enableImplicitConversion: true });
       const errors = await validate(dto);
       if (errors.length > 0) return res.status(400).json({ code: 400, message: '参数错误', errors });
-      const csv = await reminderService.exportRenewalCsv(dto.days, dto.assetType);
-      const filename = encodeURIComponent(`续保清单_${new Date().toISOString().split('T')[0]}.csv`);
+      const csv = await reminderService.exportRenewalCsv(dto.days, dto.assetType, dto.batchNo);
+      const batchPart = dto.batchNo ? `_${dto.batchNo}` : '';
+      const filename = encodeURIComponent(`续保清单${batchPart}_${new Date().toISOString().split('T')[0]}.csv`);
       res.setHeader('Content-Type', 'text/csv; charset=utf-8');
       res.setHeader('Content-Disposition', `attachment; filename*=UTF-8''${filename}`);
       res.send(csv);
@@ -105,7 +166,7 @@ class ReportController {
       res.json({
         code: 200,
         data: chain,
-        message: `查询到关联记录 - 资产:${chain.asset ? 1 : 0} 保单:${chain.policies.length} 理赔:${chain.claims.length} 日志:${chain.logs.length} 同步:${chain.syncRecords.length}`
+        message: `查询到关联记录 - 资产:${chain.asset ? 1 : 0} 保单:${chain.policies.length} 理赔:${chain.claims.length} 材料:${chain.materials.length} 日志:${chain.logs.length} 同步:${chain.syncRecords.length} 时间线事件:${chain.timeline.length}`
       });
     } catch (e: any) {
       res.status(500).json({ code: 500, message: e.message });

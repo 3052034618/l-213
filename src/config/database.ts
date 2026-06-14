@@ -8,10 +8,12 @@ export interface Asset {
   assetNo: string;
   assetName: string;
   assetType: string;
+  company?: string;
   originalValue: number;
   location?: string;
   description?: string;
   status: string;
+  operator?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -83,6 +85,9 @@ export interface ClaimMaterial {
   fileSize: number;
   description?: string;
   uploader: string;
+  materialName?: string;
+  fileUrl?: string;
+  remarks?: string;
   createdAt: string;
 }
 
@@ -97,6 +102,8 @@ export interface OperationLog {
   operator: string;
   ipAddress?: string;
   remarks?: string;
+  action?: string;
+  detail?: string;
   createdAt: string;
 }
 
@@ -119,12 +126,36 @@ export interface SyncRecord {
   payload: string;
   targetSystem: string;
   status: string;
+  httpStatus?: number;
+  errorCategory?: string;
+  errorMessage?: string;
+  requestDurationMs?: number;
   retryCount: number;
   maxRetry: number;
-  errorMessage?: string;
-  responseBody?: string;
+  retryStrategy?: string;
+  nextRetryAt?: string;
   lastSyncAt?: string;
+  lastRequestId?: string;
+  lastRequestBody?: string;
+  lastResponseBody?: string;
+  externalAckStatus?: string;
+  externalAckResult?: string;
+  externalAckTime?: string;
+  externalAckRemark?: string;
+  batchNo?: string;
   createdAt: string;
+}
+
+export interface AutoRetryPolicy {
+  id: number;
+  policyName: string;
+  maxRetry: number;
+  backoffType: 'fixed' | 'exponential';
+  intervalSeconds: number;
+  httpErrorWhitelist: string;
+  enabled: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface ReminderTask {
@@ -137,6 +168,35 @@ export interface ReminderTask {
   enabled: boolean;
   lastRunAt?: string;
   nextRunAt?: string;
+  receivers?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ReminderHistory {
+  id: number;
+  taskId: number;
+  batchNo: string;
+  remindDays: number;
+  assetType?: string;
+  company?: string;
+  triggeredCount: number;
+  totalPremium: number;
+  totalAmount: number;
+  receivers?: string;
+  assetTypeSummary?: string;
+  companySummary?: string;
+  createdAt: string;
+}
+
+export interface ReminderReceiver {
+  id: number;
+  name: string;
+  email?: string;
+  phone?: string;
+  department?: string;
+  categories: string;
+  enabled: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -150,7 +210,10 @@ interface DatabaseSchema {
   logs: OperationLog[];
   externalSystems: ExternalSystem[];
   syncRecords: SyncRecord[];
+  autoRetryPolicies: AutoRetryPolicy[];
   reminderTasks: ReminderTask[];
+  reminderHistories: ReminderHistory[];
+  reminderReceivers: ReminderReceiver[];
   counters: {
     assetId: number;
     policyId: number;
@@ -160,7 +223,10 @@ interface DatabaseSchema {
     logId: number;
     externalSystemId: number;
     syncRecordId: number;
+    autoRetryPolicyId: number;
     reminderTaskId: number;
+    reminderHistoryId: number;
+    reminderReceiverId: number;
   };
 }
 
@@ -173,17 +239,23 @@ const defaultData: DatabaseSchema = {
   logs: [],
   externalSystems: [],
   syncRecords: [],
+  autoRetryPolicies: [],
   reminderTasks: [],
+  reminderHistories: [],
+  reminderReceivers: [],
   counters: {
-    assetId: 0,
-    policyId: 0,
-    claimId: 0,
-    materialId: 0,
-    approvalNodeId: 0,
-    logId: 0,
-    externalSystemId: 0,
-    syncRecordId: 0,
-    reminderTaskId: 0
+    assetId: 1,
+    policyId: 1,
+    claimId: 1,
+    materialId: 1,
+    approvalNodeId: 1,
+    logId: 1,
+    externalSystemId: 1,
+    syncRecordId: 1,
+    autoRetryPolicyId: 1,
+    reminderTaskId: 1,
+    reminderHistoryId: 1,
+    reminderReceiverId: 1
   }
 };
 
@@ -205,8 +277,25 @@ export async function initDatabase(): Promise<void> {
     db.data = defaultData;
   }
 
-  if (!db.data.counters) {
-    db.data.counters = defaultData.counters;
+  const d = db.data;
+  d.assets ||= []; d.policies ||= []; d.claims ||= []; d.materials ||= [];
+  d.claimApprovalNodes ||= []; d.logs ||= []; d.externalSystems ||= [];
+  d.syncRecords ||= []; d.autoRetryPolicies ||= [];
+  d.reminderTasks ||= []; d.reminderHistories ||= []; d.reminderReceivers ||= [];
+  d.counters ||= defaultData.counters;
+
+  if (d.autoRetryPolicies.length === 0) {
+    d.autoRetryPolicies.push({
+      id: nextId('autoRetryPolicyId'),
+      policyName: '默认重试策略',
+      maxRetry: 5,
+      backoffType: 'exponential',
+      intervalSeconds: 30,
+      httpErrorWhitelist: '408,429,500,502,503,504',
+      enabled: true,
+      createdAt: now(),
+      updatedAt: now()
+    });
   }
 
   await db.write();

@@ -13,6 +13,7 @@ import operationLogRoutes from './routes/operationLog.routes';
 import syncRoutes from './routes/sync.routes';
 import reportRoutes from './routes/report.routes';
 import { reminderService } from './services/reminder.service';
+import { syncService } from './services/sync.service';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -81,6 +82,8 @@ initDatabase()
           }
         }).catch(e => logger.error('定时提醒任务失败:', e));
       }, 60 * 60 * 1000);
+
+      syncService.startAutoRetryScheduler();
     });
   })
   .catch((error) => {

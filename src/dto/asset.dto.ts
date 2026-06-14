@@ -13,6 +13,10 @@ export class CreateAssetDto {
   @IsString()
   assetType!: string;
 
+  @IsOptional()
+  @IsString()
+  company?: string;
+
   @IsNotEmpty()
   @IsNumber()
   @Min(0)

@@ -2,7 +2,10 @@ import { Router } from 'express';
 import { syncController } from '../controllers/sync.controller';
 import { validateDto } from '../middleware/validation.middleware';
 import { createOperationLog } from '../middleware/operationLog.middleware';
-import { RegisterExternalSystemDto, UpdateExternalSystemDto, QuerySyncRecordDto } from '../dto/sync.dto';
+import {
+  RegisterExternalSystemDto, UpdateExternalSystemDto,
+  QuerySyncRecordDto, SubmitAckDto
+} from '../dto/sync.dto';
 
 const router = Router();
 
@@ -16,7 +19,6 @@ router.post(
   }),
   syncController.registerSystem
 );
-
 router.put(
   '/systems/:id',
   validateDto(UpdateExternalSystemDto),
@@ -27,14 +29,11 @@ router.put(
   }),
   syncController.updateSystem
 );
-
 router.get('/systems', syncController.listSystems);
+router.post('/systems/:id/test', syncController.testWebhook);
 
-router.get(
-  '/records',
-  validateDto(QuerySyncRecordDto),
-  syncController.queryRecords
-);
+router.get('/records', validateDto(QuerySyncRecordDto), syncController.queryRecords);
+router.get('/records/:id', syncController.getRecordDetail);
 
 router.post(
   '/records/:id/retry',
@@ -45,16 +44,29 @@ router.post(
   }),
   syncController.retryRecord
 );
-
 router.post(
   '/records/retry/all',
-  createOperationLog({
-    module: 'sync',
-    operation: 'retryAll'
-  }),
+  createOperationLog({ module: 'sync', operation: 'retryAll' }),
   syncController.retryAllFailed
 );
 
+router.post(
+  '/records/:id/ack',
+  validateDto(SubmitAckDto),
+  createOperationLog({
+    module: 'sync',
+    operation: 'ack',
+    getBusinessKey: (req) => req.params.id
+  }),
+  syncController.submitAck
+);
+
 router.get('/statistics', syncController.getStatistics);
+router.get('/retry-policies', syncController.listPolicies);
+router.put(
+  '/retry-policies/:id',
+  createOperationLog({ module: 'sync', operation: 'updatePolicy', getBusinessKey: (req) => req.params.id }),
+  syncController.updatePolicy
+);
 
 export default router;

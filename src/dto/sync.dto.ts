@@ -1,4 +1,4 @@
-import { IsString, IsOptional, IsInt, Min, Max, IsBoolean, IsUrl } from 'class-validator';
+import { IsString, IsOptional, IsInt, Min, Max, IsBoolean } from 'class-validator';
 
 export class RegisterExternalSystemDto {
   @IsString()
@@ -11,7 +11,6 @@ export class RegisterExternalSystemDto {
   systemType!: string;
 
   @IsString()
-  @IsUrl()
   webhookUrl!: string;
 
   @IsOptional()
@@ -26,7 +25,6 @@ export class UpdateExternalSystemDto {
 
   @IsOptional()
   @IsString()
-  @IsUrl()
   webhookUrl?: string;
 
   @IsOptional()
@@ -56,6 +54,14 @@ export class QuerySyncRecordDto {
   status?: string;
 
   @IsOptional()
+  @IsString()
+  externalAckStatus?: string;
+
+  @IsOptional()
+  @IsString()
+  errorCategory?: string;
+
+  @IsOptional()
   @IsInt()
   @Min(1)
   page?: number;
@@ -63,8 +69,21 @@ export class QuerySyncRecordDto {
   @IsOptional()
   @IsInt()
   @Min(1)
-  @Max(100)
+  @Max(200)
   pageSize?: number;
+}
+
+export class SubmitAckDto {
+  @IsString()
+  ackStatus!: string;
+
+  @IsOptional()
+  @IsString()
+  ackResult?: string;
+
+  @IsOptional()
+  @IsString()
+  ackRemark?: string;
 }
 
 export class RetrySyncDto {
